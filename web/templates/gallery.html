@@ -10,7 +10,6 @@
 /* Create three equal columns that floats next to each other */
 .column1 {
   float: left;
-  width: 8%;
 }
 
 .column2 {
@@ -36,14 +35,12 @@
 </style>
 </head>
 <body>
-  <p><a href="/">Home</a> &nbsp; &nbsp; <a href="capture">Capture</a> &nbsp; &nbsp; <a href="gallery">Gallery</a> &nbsp; &nbsp; <a href="clear">Clear</a></p>
-  <p>Result</p>
-  <p><div class="column1">Filename:</div><div class="column2">{{filename}}</div></p>
+    <p><a href="/">Home</a> &nbsp; &nbsp; <a href="capture">Capture</a> &nbsp; &nbsp; <a href="gallery">Gallery</a> &nbsp; &nbsp; <a href="clear">Clear</a></p>
+  {% for rec in images %}
+  <div class="column1"><img src="/static/{{rec}}" width="500" alt="Grapefruit slice atop a pile of other slices"></div>
   <br class="clear">
-  <p><div class="column1">ContentType:</div><div class="column2">{{contentType}}</div></p>
+  <div class="column1">An animal</div>
   <br class="clear">
-  {% for rec in detected %}
-  <p><div class="column1b">{{rec['object']}}</div><div class="column2">Instances: {{rec['count']}}</div></p>
   <br class="clear">
   {% endfor %}
 </body>
