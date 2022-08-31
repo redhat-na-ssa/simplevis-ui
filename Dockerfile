@@ -7,9 +7,10 @@ RUN pip install flask requests bs4 flask_restful waitress
 WORKDIR /opt/app-root/src
 COPY web web
 COPY requirements.txt requirements.txt
-RUN mkdir web/uploaded-files
-RUN mkdir web/detected-files
+RUN mkdir uploaded-files
+RUN mkdir detected-files
 RUN pip install -r requirements.txt
+RUN ln -s /opt/app-root/src/detected-files/exp web/static
 
 ENV ENVIRONMENT_NAME="RHEL+Podman"
 
