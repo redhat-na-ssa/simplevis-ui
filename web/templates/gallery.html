@@ -37,10 +37,21 @@
 <body>
     <p><a href="/">Home</a> &nbsp; &nbsp; <a href="capture">Capture</a> &nbsp; &nbsp; <a href="gallery">Gallery</a> &nbsp; &nbsp; <a href="clear">Clear</a></p>
   {% for rec in images %}
-  <div class="column1"><img src="/static/{{rec}}" width="500" alt="Grapefruit slice atop a pile of other slices"></div>
+  <div class="column1"><img src="/static/{{rec['imagename']}}" width="500" alt="/static/{{rec['imagename']}}"></div>
   <br class="clear">
-  <div class="column1">An animal</div>
+    {% for l in rec['objects_detected'] %}
+    <div class="column1">Count: {{l['count']}}  Object: {{l['object']}}</div><br class="clear">
+    {% endfor %}
   <br class="clear">
   <br class="clear">
+  {% endfor %}
+
+  {% for vid in videos %}
+    <p>
+        <video width="500" controls>
+        <source src="/static/{{vid}}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </p>
   {% endfor %}
 </body>

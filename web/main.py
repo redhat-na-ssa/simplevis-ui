@@ -12,8 +12,8 @@ from PIL import Image
 import base64
 import io
 
-model_server = "http://ocpedge:5001"
-SAFE_2_PROCESS = [".jpg",".jpeg",".png",".m4v",".mov",".mp4"]
+model_server = "http://ocpedge:8000"
+SAFE_2_PROCESS = [".jpg",".jpeg",".png"]
 
 app = Flask(__name__,template_folder='templates',static_folder='static')
 api = Api(app)
@@ -46,10 +46,18 @@ def web_upload_file():
         # resp = requests.post(url=model_server+"/detect/custom", files = myfiles)
         print(resp.content)
         response = json.loads(resp.content)
+        vid = ''
         fname = response['filename']
         ctype = response['contentType']
-        dobjs = response['detectedObj']
-        return render_template('result.html',filename=fname, contentType=ctype, detected=dobjs)
+        myext = os.path.splitext(fname)
+        if myext[1] == ".mp4":
+            vid = myext[0] + ".mp4"
+        dobjs = []
+        try:
+            dobjs = response['detectedObj']
+        except Exception:
+            dobjs = [{"object": "NONE", "count": 0}]
+        return render_template('result.html',filename=fname, contentType=ctype, detected=dobjs, videoname=vid)
         
 @app.route('/result')
 def web_result():
@@ -62,6 +70,7 @@ def web_gallery():
     detected = glob.glob("/data/docker_vols/detected-files/exp/*")
     original_files = []
     detected_files = []
+    detected_videos = []
     for c in originals:
         iname = os.path.basename(c)
         if allowed_ext(iname):
@@ -70,9 +79,13 @@ def web_gallery():
         fname = os.path.basename(f)
         if allowed_ext(fname):
             labels = requests.get(url=model_server+"/uploads/get/labels/" + fname)
-            print(labels)
-            detected_files.append(fname)
-    return render_template('gallery.html',images=detected_files)
+            l = json.loads(labels.content)
+            drec = {"imagename": fname, "objects_detected": l['labels']}
+            detected_files.append(drec)
+        elif os.path.splitext(fname)[1] == ".mp4":
+            detected_videos.append(fname)
+
+    return render_template('gallery.html',images=detected_files,videos=detected_videos)
 
 def allowed_ext(fname):
     myext = os.path.splitext(fname)

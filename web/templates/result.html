@@ -43,7 +43,16 @@
   <p><div class="column1">ContentType:</div><div class="column2">{{contentType}}</div></p>
   <br class="clear">
   {% for rec in detected %}
-  <p><div class="column1b">{{rec['object']}}</div><div class="column2">Instances: {{rec['count']}}</div></p>
+  <p><div class="column1b">{{rec['object']}}</div><div class="column2">Count: {{rec['count']}}</div></p>
   <br class="clear">
   {% endfor %}
+  <p><img src="/static/{{filename}}" width="500" alt="some alt"></p>
+
+  <p>
+    <video width="500" controls>
+    <source src="/static/{{vid}}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</p>
+
 </body>
