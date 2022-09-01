@@ -13,6 +13,7 @@ from PIL import Image
 model_server = "http://" + os.environ['MODEL_SERVER']
 # model_server = "http://localhost:8000"
 SAFE_2_PROCESS = [".jpg",".jpeg",".png"]
+os.chdir('/opt/app-root/src/web')
 app = Flask(__name__,template_folder='templates',static_folder='static')
 api = Api(app)
 
