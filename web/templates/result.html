@@ -65,7 +65,7 @@
     <div class="column2b">Count</div>
     <br class="clear">
     {% for rec in detected %}
-    <p><div class="column1b"><i>{{rec['object']}}</i></div><div class="column2b"><i>Count: {{rec['count']}}</i></div></p>
+    <p><div class="column1b"><i>{{rec['object']}}</i></div><div class="column2b"><i>{{rec['count']}}</i></div></p>
     <br class="clear">
     {% endfor %}
     <p><a href="/static/{{filename}}"><img src="/static/{{filename}}" width="500" alt="/static/{{filename}}"></a></p>  
