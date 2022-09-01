@@ -9,12 +9,10 @@ import glob
 from bs4 import BeautifulSoup
 from html import unescape
 from PIL import Image
-import base64
-import io
 
-model_server = "http://cvedge.davenet.local:8000"
+model_server = "http://" + os.environ['MODEL_SERVER']
+# model_server = "http://localhost:8000"
 SAFE_2_PROCESS = [".jpg",".jpeg",".png"]
-
 app = Flask(__name__,template_folder='templates',static_folder='static')
 api = Api(app)
 
@@ -46,18 +44,20 @@ def web_upload_file():
         # resp = requests.post(url=model_server+"/detect/custom", files = myfiles)
         print(resp.content)
         response = json.loads(resp.content)
+        showme = 'image'
         vid = ''
         fname = response['filename']
         ctype = response['contentType']
         myext = os.path.splitext(fname)
-        if myext[1] == ".mp4":
+        if myext[1] == ".m4v":
             vid = myext[0] + ".mp4"
+            showme = 'video'
         dobjs = []
         try:
             dobjs = response['detectedObj']
         except Exception:
             dobjs = [{"object": "NONE", "count": 0}]
-        return render_template('result.html',filename=fname, contentType=ctype, detected=dobjs, videoname=vid)
+        return render_template('result.html',filename=fname, contentType=ctype, detected=dobjs, videoname=vid, showme=showme)
         
 @app.route('/result')
 def web_result():

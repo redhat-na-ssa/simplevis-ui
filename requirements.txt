@@ -4,3 +4,4 @@ bs4
 flask_restful 
 waitress
 Pillow
+hupper

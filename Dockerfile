@@ -13,6 +13,7 @@ RUN pip install -r requirements.txt
 RUN ln -s /opt/app-root/src/detected-files/exp web/static
 
 ENV ENVIRONMENT_NAME="RHEL+Podman"
+ENV SIMPLEVIS_DATA=/Users/davidwhite/workspace/simplevis-data
 
 EXPOSE 5002
 ENTRYPOINT ["/opt/app-root/src/web/main.py"]

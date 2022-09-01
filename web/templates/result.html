@@ -18,9 +18,11 @@
 }
 
 .column1b {
-    padding-left: 20px;
   float: left;
   width: 8%;
+}
+.column2b {
+  float: left;
 }
 
 /* Clear floats after the columns */
@@ -34,25 +36,46 @@
     clear:both;
 }
 </style>
+
+<script type="text/javascript">
+  function visbox(showme)  {
+    if (showme == 'image'){
+      document.getElementById("imgshow").style.display="block";
+      document.getElementById("vidshow").style.display="none";
+    } else if (showme == 'video'){
+      document.getElementById("imgshow").style.display="none";
+      document.getElementById("vidshow").style.display="block";
+    }
+    
+    
+  }
+</script>
+
 </head>
-<body>
+<body onload="visbox('{{showme}}')">
   <p><a href="/">Home</a> &nbsp; &nbsp; <a href="capture">Capture</a> &nbsp; &nbsp; <a href="gallery">Gallery</a> &nbsp; &nbsp; <a href="clear">Clear</a></p>
   <p>Result</p>
   <p><div class="column1">Filename:</div><div class="column2">{{filename}}</div></p>
   <br class="clear">
   <p><div class="column1">ContentType:</div><div class="column2">{{contentType}}</div></p>
   <br class="clear">
-  {% for rec in detected %}
-  <p><div class="column1b">{{rec['object']}}</div><div class="column2">Count: {{rec['count']}}</div></p>
-  <br class="clear">
-  {% endfor %}
-  <p><img src="/static/{{filename}}" width="500" alt="some alt"></p>
-
+  <div id="imgshow">
+    <br class="clear">
+    <div class="column1b">Object</div>
+    <div class="column2b">Count</div>
+    <br class="clear">
+    {% for rec in detected %}
+    <p><div class="column1b"><i>{{rec['object']}}</i></div><div class="column2b"><i>Count: {{rec['count']}}</i></div></p>
+    <br class="clear">
+    {% endfor %}
+    <p><a href="/static/{{filename}}"><img src="/static/{{filename}}" width="500" alt="/static/{{filename}}"></a></p>  
+  </div>
+<div id="vidshow">
   <p>
-    <video width="500" controls>
-    <source src="/static/{{vid}}" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</p>
-
+      <video width="500" controls>
+      <source src="/static/{{videoname}}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </p>
+</div>
 </body>

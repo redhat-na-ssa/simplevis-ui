@@ -17,9 +17,11 @@
 }
 
 .column1b {
-    padding-left: 20px;
   float: left;
   width: 8%;
+}
+.column2b {
+  float: left;
 }
 
 /* Clear floats after the columns */
@@ -37,10 +39,15 @@
 <body>
     <p><a href="/">Home</a> &nbsp; &nbsp; <a href="capture">Capture</a> &nbsp; &nbsp; <a href="gallery">Gallery</a> &nbsp; &nbsp; <a href="clear">Clear</a></p>
   {% for rec in images %}
-  <div class="column1"><img src="/static/{{rec['imagename']}}" width="500" alt="/static/{{rec['imagename']}}"></div>
+  <div class="column1"><a href="/static/{{rec['imagename']}}"><img src="/static/{{rec['imagename']}}" width="500" alt="/static/{{rec['imagename']}}"></a></div>
+  <br class="clear">
+  <div class="column1b">Object</div>
+  <div class="column2b">Count</div>
   <br class="clear">
     {% for l in rec['objects_detected'] %}
-    <div class="column1">Count: {{l['count']}}  Object: {{l['object']}}</div><br class="clear">
+    <div class="column1b"><i>{{l['object']}}</i></div>
+    <div class="column2b"><i>{{l['count']}}</i></div>
+    <br class="clear">
     {% endfor %}
   <br class="clear">
   <br class="clear">
