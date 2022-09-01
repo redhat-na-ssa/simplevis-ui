@@ -12,5 +12,5 @@ ENV ENVIRONMENT_NAME="RHEL+Podman"
 ENV SIMPLEVIS_DATA=/opt/app-root/src/simplevis-data
 ENV MODEL_SERVER=cvedge.davenet.local:8000
 
-EXPOSE 5002
+EXPOSE 5001
 ENTRYPOINT ["/opt/app-root/src/web/main.py"]

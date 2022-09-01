@@ -18,10 +18,11 @@
 
 .column1b {
   float: left;
-  width: 8%;
+  /* width: 8%; */
 }
 .column2b {
-  float: left;
+  float: right;
+  padding-left: 20px;
 }
 
 /* Clear floats after the columns */
@@ -38,17 +39,33 @@
 </head>
 <body>
     <p><a href="/">Home</a> &nbsp; &nbsp; <a href="capture">Capture</a> &nbsp; &nbsp; <a href="gallery">Gallery</a> &nbsp; &nbsp; <a href="clear">Clear</a></p>
+    <!-- <div class="column1">
+      <a href="/static/000000000034.jpg"><img src="/static/000000000034.jpg" width="500" alt="/static/000000000034.jpg"></a>
+    </div>
+    <div class="column2" style="padding-left:20px">
+      <div class="column1b">Object</div><div class="column2b">Count</div>
+      <br class="clear">
+      <div class="column1b"><i>Superdiper thinggy</i></div>
+      <div class="column2b"><i>25</i></div>  
+    </div>
+    <br class="clear">
+    <br class="clear"> -->
+
+
   {% for rec in images %}
   <div class="column1"><a href="/static/{{rec['imagename']}}"><img src="/static/{{rec['imagename']}}" width="500" alt="/static/{{rec['imagename']}}"></a></div>
-  <br class="clear">
-  <div class="column1b">Object</div>
-  <div class="column2b">Count</div>
-  <br class="clear">
-    {% for l in rec['objects_detected'] %}
-    <div class="column1b"><i>{{l['object']}}</i></div>
-    <div class="column2b"><i>{{l['count']}}</i></div>
-    <br class="clear">
-    {% endfor %}
+  <!-- <br class="clear"> -->
+  <div class="column2" style="padding-left:20px">
+      <br>
+      <div class="column1b">Object</div><div class="column2b">Count</div>    
+      <br class="clear">
+      {% for l in rec['objects_detected'] %}
+      <div class="column1b"><i>{{l['object']}}</i></div>
+      <div class="column2b"><i>{{l['count']}}</i></div>
+      <br class="clear">
+      {% endfor %}
+      <br class="clear">
+  </div>
   <br class="clear">
   <br class="clear">
   {% endfor %}
