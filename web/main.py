@@ -41,7 +41,7 @@ def web_upload_file():
     if request.method == 'POST':
         f = request.files['file']
         sendFile = {"file": (f.filename, f.stream, f.mimetype)}
-        resp = requests.post(url=model_server+"/detect/custom", files=sendFile)
+        resp = requests.post(url=model_server+"/detect", files=sendFile)
         # resp = requests.post(url=model_server+"/detect/custom", files = myfiles)
         print(resp.content)
         response = json.loads(resp.content)
